@@ -1,0 +1,39 @@
+{
+    "name": "manampy-ticket",
+    "keywords": [
+	   "theia-extension"
+    ],
+    "version": "0.0.0",
+    "files": [
+	   "lib",
+	   "src"
+    ],
+    "dependencies": {
+	   "@emotion/react": "^11.10.5",
+	   "@emotion/styled": "^11.10.5",
+	   "@mui/lab": "^5.0.0-alpha.114",
+	   "@mui/material": "^5.11.3",
+	   "@theia/core": "latest"
+    },
+    "devDependencies": {
+	   "@testing-library/react": "^11.2.7",
+	   "@types/jest": "^26.0.20",
+	   "jest": "^26.6.3",
+	   "rimraf": "latest",
+	   "ts-jest": "^26.5.6",
+	   "ts-node": "^10.9.1",
+	   "typescript": "latest"
+    },
+    "scripts": {
+	   "prepare": "yarn run clean && yarn run build",
+	   "clean": "rimraf lib",
+	   "build": "tsc",
+	   "watch": "tsc -w",
+	   "test": "jest --config configs/jest.config.ts"
+    },
+    "theiaExtensions": [
+	   {
+		  "frontend": "lib/browser/manampy-ticket-frontend-module"
+	   }
+    ]
+}
