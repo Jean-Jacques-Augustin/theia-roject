@@ -1,9 +1,9 @@
-/*
+
 
 import {Button} from '@prg-cube/ui-core';
 import * as React from '@theia/core/shared/react';
 import {HwPlatform as MockHwPlatform} from '../../../common/protocol';
-import CustomModal from "./components/CustomModal";
+import { OptionDialog } from './popup/dialog';
 
 interface IHwProjectComponentProps {
     updateMcu(mcu: string): void;
@@ -24,22 +24,28 @@ export function HwProjectComponent(
 ): JSX.Element {
     const [selectedHwPlatform, setSelectedHwPlatform] = React.useState(props.mcu);
 
+    // Tis is a state to show the dialg
+    const [dialogState, setDialogState] = React.useState(false);
+
+    // Afficher le dialog
+    
     /**
      * Handler on hw platform selected
      * @argument _hwPlatformName : string
      * @returns void
      */
-    /*
+    
     const onHwPlatformSelected = (_hwPlatformName: string): void => {
         setSelectedHwPlatform(_hwPlatformName);
-    };*/
+    };
 
     /**
      * Get a hw platform
      * @argument _hwPlatformName : string
      * @returns HwPlatform | undefined
      */
-    /*
+    
+
     const getHwPlatform = (
         _hwPlatformName: string
     ): MockHwPlatform | undefined => {
@@ -49,10 +55,21 @@ export function HwProjectComponent(
     };
 
 
+    /**
+     * AcceptButtonActions is here to confirm user choice
+     */
+
     const onClickRemovePlateform = () => {
         setSelectedHwPlatform('');
         props.updateMcu('');
     }
+
+    const AcceptButtonActions = () => {
+        onClickRemovePlateform()
+    }
+
+
+   
 
 
     /**
@@ -62,11 +79,10 @@ export function HwProjectComponent(
      * @returns HwPlatform | undefined
      */
 
-/*
+
     const makeHwPlatformSelector = (
         hwPlatforms: MockHwPlatform[]
     ): React.ReactNode => {
-        const [confirmDialog, setConfirmDialog] = React.useState(false);
 
         return (
             <select
@@ -130,21 +146,28 @@ export function HwProjectComponent(
                                 data-testid="hw_platform_button_delete"
                                 className="ap_view_platform-child ap_view-remove-hw-platform"
                                 onClick={() => {
-                                    setConfirmDialog(true)
+                                    setDialogState(true);
                                 }}
                                 title="Click to remove HW platform"
                             >
                                 <span className="fa fa-remove"></span>
                                 Remove
                             </div>
-                            {confirmDialog
-                                &&
-                                <CustomModal onCloseButtonClick={() => {
-                                    setConfirmDialog(false)
-                                }} onAcceptButtonClick={onClickRemovePlateform}
-                                             message={"Voulez-vous vraiment supprimer la plateforme ?"}
-                                             title={"Supprimer la plateforme"}/>
-                            }
+                            {
+                                /**
+                                 * This condition is to show the dialog
+                                 */
+                                dialogState 
+                                && 
+                                <OptionDialog 
+                                    onDialog={true} 
+                                    message="Voulez-vous créer un nouveau projet ?" 
+                                    title="Créer un nouveau projet" 
+                                    onAcceptButtonClick={AcceptButtonActions} 
+                                    onCloseButtonClick={() => setDialogState(false)} 
+                                /> 
+                         }
+                
                         </div>
                     </>
                 ) : (
@@ -153,4 +176,4 @@ export function HwProjectComponent(
             </div>
         </div>
     );
-}*/
+}

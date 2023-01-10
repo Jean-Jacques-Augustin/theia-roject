@@ -13,7 +13,7 @@ interface CustomDialogProps {
      onCloseButtonClick: () => void;
 }
 
-export const CustomDialog = (props: CustomDialogProps) => {
+export const OptionDialog = (props: CustomDialogProps) => {
      return (
           <div>
                 <div className="dialog">
