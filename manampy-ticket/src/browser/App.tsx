@@ -1,8 +1,7 @@
 import React = require("@theia/core/shared/react");
 import {Button, Container} from "@mui/material";
-import CustomModal from "./components/CustomModal";
+import { CustomDialog } from "./components/popup/dialog";
 
-const linkBackend = "http://localhost:3001";
 
 export default function App() {
     const [showModal, setShowModal] = React.useState(false);
@@ -16,7 +15,7 @@ export default function App() {
     };
 
     const comminucationBack = () => {
-        
+        // les opération backend
     }
 
     return (
@@ -25,7 +24,13 @@ export default function App() {
                 <Button variant="text" onClick={handleButtonClick}>Créer un nouveau projet</Button>
                 {showModal
                     &&
-                    <CustomModal onCloseButtonClick={handleCloseButtonClick} onAcceptButtonClick={comminucationBack} message={"Message"}  title={"Titre du message"}/>
+                    <CustomDialog
+                        onDialog={showModal}
+                        message={"Message"}
+                        title={"Titre du message"}
+                        onAcceptButtonClick={comminucationBack}
+                        onCloseButtonClick={setShowModal(false)}
+                    />
                 }
             </Container>
         </div>

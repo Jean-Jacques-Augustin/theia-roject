@@ -1,51 +1,54 @@
-import { Button, Paper, Typography } from '@mui/material';
-import React = require('react');
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-interface ModalProps {
+interface CustomModalProps {
+    open: boolean;
     onCloseButtonClick: () => void;
     onAcceptButtonClick: () => void;
-    message: string;
+    message: string;    
     title: string;
 }
 
-const CustomModal = ({ message, onAcceptButtonClick, onCloseButtonClick, title }: ModalProps) => {
-    return (
-        <Paper id="modal" style={{ width: 200, margin: 'auto', padding: '2vh' }} variant="outlined">
-            <div style={{ margin: '2vh auto' }}>
-                <Typography align="center" style={{ padding: 2 }}>
-                    {title}
-                </Typography>
-                <Typography align="center">{message}</Typography>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                <Button
-                    onClick={onCloseButtonClick}
-                    variant="outlined"
-                    size="small"
-                    style={{ textTransform: 'none', backgroundColor: 'red' }}
-                >
-                    Annuler
-                </Button>
-                <Button
-                    onClick={onAcceptButtonClick}
-                    variant="outlined"
-                    size="small"
-                    style={{ textTransform: 'none', backgroundColor: 'green' }}
-                >
-                    Accepter
-                </Button>
-            </div>
-        </Paper>
-    );
-};
+export default function CustomDialog({message,onAcceptButtonClick,onCloseButtonClick, title} : CustomModalProps) {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => setOpen(false);
 
-export default CustomModal;
+  return (
+       <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="dialog_title"
+        aria-describedby="this is a dialog box to confirm the action "
+      >
+        <DialogTitle id="dialog_title">
+            {title}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {message}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCloseButtonClick}>No</Button>
+          <Button onClick={onAcceptButtonClick}>Yes</Button>
+        </DialogActions>
+      </Dialog>
+  );
+}
 
+const useCustomDialog = () => {
+    const [open, setOpen] = React.useState(false);
 
-/**
- * Path: manampy-ticket\src\browser\components\CustomModal.tsx
- * state : boolean => 
- * si oui => ActionApresAffichageModal();
- *  pregressbar:() => theia Message Service
- * si non => ne pas afficher le modal => break
- */
+    const otherAction = () => {
+        // les opération backend
+    }
+
+   return( <CustomDialog
+        open={open}
+        onCloseButtonClick={() => setOpen(false)}
+        onAcceptButtonClick={otherAction}
+        title={"Titre du message"}
+        message={"Message"}
+    />)
+}

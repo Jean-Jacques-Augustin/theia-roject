@@ -154,7 +154,3 @@ export function HwProjectComponent(
         </div>
     );
 }*/
-
-const CustomButton2 = ((props: any, ref: any) => {});
-
-export default CustomButton2;

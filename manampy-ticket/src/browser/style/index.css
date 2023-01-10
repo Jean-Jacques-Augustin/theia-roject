@@ -5,3 +5,14 @@
     padding: 10px;
     text-transform: uppercase;
 }
+
+
+.app-view-enabled_btn {
+    background-color : #03234b;
+    border: 0;
+}
+
+.app-view-disabled_btn {
+    background-color : #808080;
+    border: 0;
+}
